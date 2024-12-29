@@ -1,0 +1,15 @@
+tls:
+  certificates:
+    - certFile: "/certs/certificate.crt"
+      keyFile: "/certs/private.key"
+      # Uncomment the following line if you need to use the CA bundle
+      # certFile: "/certs/ca_bundle.crt"
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/certs/certificate.crt"
+        keyFile: "/certs/private.key"
+
+
+
+

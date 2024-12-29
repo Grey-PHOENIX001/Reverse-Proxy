@@ -1,0 +1,49 @@
+version: '3.2'
+
+services:
+  traefik:
+    image: traefik:v3.2
+    container_name: traefik
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=my-custom-network
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesResolvers.myresolver.acme.tlsChallenge=true
+      - --certificatesResolvers.myresolver.acme.email=phoenix.cyber101@gmail.com
+      - --certificatesResolvers.myresolver.acme.storage=/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/prox/traf-doc/certs:/certs
+      - /home/prox/traf-doc/acme.json:/acme.json
+    networks:
+      - my-custom-network
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx-ubuntu
+    container_name: nginx_ubuntu
+    volumes:
+      - ./nginx-ubuntu/certs:/etc/nginx/certs
+      - ./nginx-ubuntu/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - my-custom-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx-https.rule=Host(`nginx.cybercloud.live`)"
+      - "traefik.http.routers.nginx-https.entrypoints=websecure"
+      - "traefik.http.routers.nginx-https.tls=true"
+      - "traefik.http.routers.nginx-https.tls.certResolver=myresolver"
+    restart: unless-stopped
+
+networks:
+  my-custom-network:
+    external: true

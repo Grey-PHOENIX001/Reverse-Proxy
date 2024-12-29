@@ -1,0 +1,23 @@
+
+docker swarm join --token SWMTKN-1-0wzn5wfhitugs7diz03usqubmbxrlg94ivzowal87kfjfdwz4l-cyyuhokjkprn6odjf4q906z7o 10.10.10.5:2377
+
+// Command to join another network
+
+//Command to create and joing swarm network for docker clusters
+
+docker network create --driver=overlay --attachable my-custom-network
+
+// Command to create a new swarm docker network
+
+docker network create --driver bridge --subnet 192.168.100.0/24 --gateway 192.168.100.1 my-custom-network
+
+// Command to create a bridged docker network with specific subnet
+
+docker swarm leave --force
+
+// Command to leave the swarm
+
+docker network inspect <network_name_or_id>
+
+//Command to check docker network info
+

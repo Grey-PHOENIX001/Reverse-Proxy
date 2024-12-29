@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+  nginx:
+    build: .
+    container_name: nginx_ubuntu
+    volumes:
+      - ./certs:/etc/nginx/certs
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - my-custom-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx-https.rule=Host(`nginx.cybercloud.live`)"
+      - "traefik.http.routers.nginx-https.entrypoints=websecure"
+      - "traefik.http.routers.nginx-https.tls=true"
+      - "traefik.http.routers.nginx-https.tls.certResolver=myresolver"
+    restart: unless-stopped
+
+networks:
+  my-custom-network:
+    external: true

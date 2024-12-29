@@ -1,0 +1,25 @@
+version: '3.2'
+
+services:
+  nginx:
+    container_name: nginx_demo
+    image: nginx:latest
+    volumes:
+      - /home/prox/traf-doc/certs:/etc/nginx/certs
+      - /home/prox/traf-doc/nginx-demo/conf.d:/etc/nginx/conf.d
+    networks:
+      - my-custom-network
+    ports:
+#      - "80:80"   # HTTP port
+      - "444:443" # HTTPS port
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx-https.rule=Host(`nginx.cybercloud.live`)"
+      - "traefik.http.routers.nginx-https.entrypoints=websecure"
+      - "traefik.http.routers.nginx-https.tls=true"
+      - "traefik.http.routers.nginx-https.tls.certResolver=myresolver"
+    restart: unless-stopped
+
+networks:
+  my-custom-network:
+    external: true
