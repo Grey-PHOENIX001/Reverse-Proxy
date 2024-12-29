@@ -21,8 +21,8 @@ This project demonstrates how to set up an Nginx container with SSL enabled, rou
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/nginx-traefik-ssl.git
-cd nginx-traefik-ssl
+git clone https://github.com/Grey-PHOENIX001/Reverse-Proxy.git
+cd Reverse-Proxy
 ```
 
 ### Step 2: Configure External Network
@@ -40,7 +40,7 @@ Point your domain `example.com` to your server's public IP address.
 ### Step 4: Deploy the Stack
 
 - Ensure to change the domain name with your obtained public domain and forward System IP with 443 port (Not the docker IP, its your host system IP) to your static IP.
-- Also create a directory certs in the path mentioned in config and add your ssl certificates there
+- Also create a directory certs in the path mentioned in config and add your ssl certificates there.
    
 Start the containers using Docker Compose:
 
@@ -52,17 +52,18 @@ docker-compose up -d
 
 Access your application:
 
-- HTTP: [http://nginx.cybercloud.live](http://example.com) (redirected to HTTPS)
-- HTTPS: [https://nginx.cybercloud.live](https://example.com)
+- HTTP: [http://example.com](http://example.com) (redirected to HTTPS)
+- HTTPS: [https://example.com](https://example.com)
 
 ## Project Structure
 
 ```plaintext
 .
-├── docker-compose.yml  # Docker Compose configuration
-├── traefik.toml        # Traefik static configuration (if used)
-├── certs/              # SSL certificates (if manually configured)
-├── logs/               # Log files (if enabled)
+├── docker-compose.yml  # Docker Compose configuration for traefik
+├──acme.json/           # Contains SSL Certificates
+├── config/             # Traefik configuration 
+├── certs/              # SSL certificates - cloned from host for all cert references
+├── nginx-ubuntu/       # Contains docker compose and nginx config
 └── README.md           # Project documentation
 ```
 
