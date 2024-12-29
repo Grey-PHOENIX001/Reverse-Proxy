@@ -63,6 +63,7 @@ Access your application:
 ├──acme.json/           # Contains SSL Certificates
 ├── config/             # Traefik configuration 
 ├── certs/              # SSL certificates - cloned from host for all cert references
+├── nginx-demo/         # Can use either of this or ubuntu with nginx docker (might cause config issues is domain name or path is not corrected)
 ├── nginx-ubuntu/       # Contains docker compose and nginx config
 └── README.md           # Project documentation
 ```
