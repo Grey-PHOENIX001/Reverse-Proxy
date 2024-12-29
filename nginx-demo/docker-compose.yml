@@ -14,7 +14,7 @@ services:
       - "444:443" # HTTPS port
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nginx-https.rule=Host(`nginx.cybercloud.live`)"
+      - "traefik.http.routers.nginx-https.rule=Host(`example.com`)"
       - "traefik.http.routers.nginx-https.entrypoints=websecure"
       - "traefik.http.routers.nginx-https.tls=true"
       - "traefik.http.routers.nginx-https.tls.certResolver=myresolver"
